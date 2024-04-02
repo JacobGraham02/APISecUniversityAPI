@@ -1,4 +1,5 @@
 Example API security issues:
+
 	OWASP #1: Broken Object Level Authorization
 		Allows an object from a request to be authorized as another object. For example, if two users are using a service, a Broken Object Level
 	Authorization vulnerability will allow a request from user A to act as a request from user B
@@ -18,6 +19,7 @@ Example API security issues:
 		Functions like CRUD (Create, Read, Update, Delete) which are available to end users when using a(n) API endpoint. 
 
 OWASP top 10 background:
+
 	1. Broken object level authorization
 		Manipulation of APIs to access data/objects belonging to other users. Can lead to data loss, disclosure, and data manipulation. Attacker authencates as User A 
 		and then retrieves data on User B. Need to ensure no data bleeds across entities
@@ -57,9 +59,39 @@ OWASP top 10 background:
 
 	6. Unrestricted access to sensitive business flows
 		Abuse of a legitimate business workflow through excessive, automated use. Rate limiting, captchas not always effective against fradulent traffic. Rapid IP rotation
-		makes detection difficult. Typically a result of application logic flaw. Loss of critical business activity. Examples include:
-	7. Server side request forgery
-	8. Security misconfiguration
-	9. Improper inventory management
-	10. Unsafe consumption of APIs
+		makes detection difficult. Typically a result of application logic flaw. Loss of critical business activity. Examples include: mass automated ticket purchasing
+		and high volume referral bonuses
+		You can prevent this by:
+			Identifying critical business workflows
+			Implementing fraudulent traffic detection and control
+			Setup and automate testing of control mechanisms
 
+	7. Server side request forgery
+		Exploiting URL inputs to make a request to a malicious, 3rd party server. SSRF creates a channel for malicious requests, data access or other fraudulent activity. 
+		Has the potential for data leaks. Examples include: Local file injection (LFI), User submissions, and malware downloaded from malicious sites
+		You can prevent this by:
+			Validating and sanitizing all user-supplied information, including URL parameters
+			Ensure communication only permitted with trusted resources
+			Test URL validation effectiveness
+
+	8. Security misconfiguration
+		Broad category encompassing the lack of hardening to unnecessary services. Use of bots to scan, detect, and exploit misconfigurations. Misconfigurations can
+		expose sensitive user data, and has potential for full server compromise. Examples include: Lack of security hardening, improperly configured permissions, 
+		missing security patches, unnecessary features enabled, missing tls, cors policy missing or improperly set. 
+		You can prevent this by:
+			Implementing hardening procedures
+			Routinely review configurations
+			Implement automated, continuous security testing
+
+	9. Improper inventory management
+		Unauthorized API access via old, unused API versions, or through trusted 3rd parties. Exposes data / account theft via unretired API's. Exposure of sensitive data via
+		improperly secured 3rd party API's. Examples include: Old versions of API's, unpatched endpoints, endpoints with weaker security, outdated documentation, 
+		unnecessarily exposed endpoints, and API access via 3rd party. 
+		You can prevent this by:
+			Deploying/managing all APIs in gateway
+			Defining all rules for versioning and retirement
+			Periodically auditing 3rd party access
+
+	10. Unsafe consumption of APIs
+		Exposures can occur via the use of 3rd paty APIs, which are generally trusted. However, 3rd parties can be exploited, which can be used to attack APIs that rely 
+		on them. Risks are data theft, breaches, and account takeovers. Examples include: An attacker inserts malicious 
